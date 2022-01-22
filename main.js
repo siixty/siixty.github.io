@@ -1,10 +1,10 @@
 import './style.css'
 
-import * as THREE from 'three';
+import * as THREE from 'https://threejs.org/build/three.module.js';
 
 import {
   OrbitControls
-} from 'three/examples/jsm/controls/OrbitControls';
+} from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
 
@@ -12,9 +12,8 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
-  antialias: true
+  antialias: true,
 })
-
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(200);
@@ -30,6 +29,7 @@ normalMap.wrapS = THREE.RepeatWrapping;
 normalMap.wrapT = THREE.RepeatWrapping;
 const roughMap = new THREE.TextureLoader().load("roughMap.png");
 const dispMap = new THREE.TextureLoader().load("dispMap.png");
+const dispMap2 = new THREE.TextureLoader().load("dispMap2.png");
 const aoMap = new THREE.TextureLoader().load("aoMap.png");
 
 // MATERIALS 
@@ -45,17 +45,16 @@ const dode = new THREE.Mesh(
   new THREE.MeshPhysicalMaterial({
     color: 0x79018C,
     map: dispMap,
-    clearcoat: 0.4
   })
 )
 
 scene.add(dode);
 
-const pointLight = new THREE.PointLight(0xffffff, 3);
-pointLight.position.set(1000, 1000, 1000);
+const pointLight = new THREE.PointLight(0xffffff, 1.5);
+pointLight.position.set(500, 500, 500);
 
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+scene.add(pointLight, ambientLight);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
@@ -65,6 +64,7 @@ controls.minPolarAngle = 0.8;
 controls.maxPolarAngle = 2.4;
 controls.dampingFactor = 0.07;
 controls.rotateSpeed = 0.07;
+
 // STARS
 
 function addStar() {
@@ -72,7 +72,7 @@ function addStar() {
   const geometry = new THREE.SphereGeometry(1, 24, 24);
   const material = new THREE.MeshPhysicalMaterial({
     color: 0xffd27d,
-    clearcoat: 1
+    clearcoat: 1,
   })
 
   const star = new THREE.Mesh(geometry, material);
@@ -94,7 +94,7 @@ Array(600).fill().forEach(addStar);
 function animate() {
   requestAnimationFrame(animate);
 
-  dode.rotation.z += 0.004;
+  dode.rotation.z -= 0.004;
 
   controls.update();
 
