@@ -10,7 +10,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
-  button: document.getElementById("btn"),
+  button: document.getElementById("btn2"),
   antialias: true,
 })
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -21,13 +21,19 @@ renderer.render(scene, camera);
 
 // Geometry
 
-const diffMap = new THREE.TextureLoader().load("diffMap.png");
-const normalMap = new THREE.TextureLoader().load("normalDX.png");
+let diffMap = new THREE.TextureLoader().load("diffMap.png");
+let normalMap = new THREE.TextureLoader().load("normalDX.png");
 normalMap.wrapS = THREE.RepeatWrapping;
 normalMap.wrapT = THREE.RepeatWrapping;
-const roughMap = new THREE.TextureLoader().load("roughMap.png");
-const dispMap = new THREE.TextureLoader().load("dispMap.png");
-const aoMap = new THREE.TextureLoader().load("aoMap.png");
+let roughMap = new THREE.TextureLoader().load("roughMap.png");
+let dispMap = new THREE.TextureLoader().load("dispMap.png");
+let aoMap = new THREE.TextureLoader().load("aoMap.png");
+
+
+let matArray = [
+  diffMap, normalMap, roughMap, dispMap, aoMap
+]
+
 
 // MATERIALS 
 // color: 0xf0e7e7,
@@ -38,19 +44,25 @@ const aoMap = new THREE.TextureLoader().load("aoMap.png");
 // aoMap: aoMap
 let dodeMat = new THREE.MeshPhysicalMaterial({
   map: dispMap,
+  bumpMap: dispMap,
+  displacementMap: dispMap,
+  aoMap: dispMap
 })
 let dode = new THREE.Mesh(
   new THREE.DodecahedronGeometry(50, 20),
   dodeMat
 )
-// RANDOM COLOR
-btn.addEventListener("click", function () {
+btn2.addEventListener("click", function () {
+  var rgb = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)];
 
-  var h = Math.floor(Math.random() * 361);
-  var s = Math.floor(Math.random() * 101);
-  var l = Math.floor(Math.random() * 101);
-
-  dodeMat.color.set('hsl(' + h + ', ' + s + '%, ' + l + '%)')
+  dodeMat.displacementMap = matArray[Math.floor(Math.random() * matArray.length)];
+  dodeMat.aoMap = matArray[Math.floor(Math.random() * matArray.length)];
+  dodeMat.aoMapIntensity = Math.floor((Math.random() * 10) + 1);
+  dodeMat.displacementScale = Math.floor((Math.random() * 10) + 1);
+  dodeMat.bumpScale = Math.floor((Math.random() * 3) + 0);
+  dodeMat.map = matArray[Math.floor(Math.random() * matArray.length)];
+  dodeMat.bumpMap = matArray[Math.floor(Math.random() * matArray.length)];
+  dodeMat.color.set('rgb(' + rgb.join(', ') + ')')
 });
 
 scene.add(dode);
