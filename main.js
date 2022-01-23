@@ -10,6 +10,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
+  button: document.getElementById("btn"),
   antialias: true,
 })
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -17,7 +18,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(200);
 
 renderer.render(scene, camera);
-
 
 // Geometry
 
@@ -27,7 +27,6 @@ normalMap.wrapS = THREE.RepeatWrapping;
 normalMap.wrapT = THREE.RepeatWrapping;
 const roughMap = new THREE.TextureLoader().load("roughMap.png");
 const dispMap = new THREE.TextureLoader().load("dispMap.png");
-const dispMap2 = new THREE.TextureLoader().load("dispMap2.png");
 const aoMap = new THREE.TextureLoader().load("aoMap.png");
 
 // MATERIALS 
@@ -37,14 +36,22 @@ const aoMap = new THREE.TextureLoader().load("aoMap.png");
 // roughnessMap: roughMap,
 // displacementMap: dispMap,
 // aoMap: aoMap
-
-const dode = new THREE.Mesh(
+let dodeMat = new THREE.MeshPhysicalMaterial({
+  map: dispMap,
+})
+let dode = new THREE.Mesh(
   new THREE.DodecahedronGeometry(50, 20),
-  new THREE.MeshPhysicalMaterial({
-    color: 0x79018C,
-    map: dispMap,
-  })
+  dodeMat
 )
+// RANDOM COLOR
+btn.addEventListener("click", function () {
+
+  var h = Math.floor(Math.random() * 361);
+  var s = Math.floor(Math.random() * 101);
+  var l = Math.floor(Math.random() * 101);
+
+  dodeMat.color.set('hsl(' + h + ', ' + s + '%, ' + l + '%)')
+});
 
 scene.add(dode);
 
