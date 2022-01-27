@@ -1,12 +1,12 @@
-import * as THREE from 'three';
+import * as THREE from 'https://cdn.skypack.dev/three';
 
 import {
   RGBELoader,
-  sRGBEncoding,
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/RGBELoader.js'
+
+import {
   OrbitControls
-} from 'three'
-
-
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js'
 
 const scene = new THREE.Scene();
 
@@ -36,29 +36,29 @@ window.addEventListener("resize", () => {
 // Geometry
 
 let diffMap = new THREE.TextureLoader().load("./graphics/planet_textureAzure.jpg");
-diffMap.encoding = sRGBEncoding;
+diffMap.encoding = THREE.sRGBEncoding;
 
 
 let roughMap = new THREE.TextureLoader().load("./graphics/planet_textureAuric.jpg");
-roughMap.encoding = sRGBEncoding;
+roughMap.encoding = THREE.sRGBEncoding;
 let dispMap = new THREE.TextureLoader().load("./graphics/planet_textureChondrite.jpg");
-dispMap.encoding = sRGBEncoding;
+dispMap.encoding = THREE.sRGBEncoding;
 let aoMap2 = new THREE.TextureLoader().load("./graphics/planet_textureBurnt.jpg");
-aoMap2.encoding = sRGBEncoding;
+aoMap2.encoding = THREE.sRGBEncoding;
 
 let map5 = new THREE.TextureLoader().load("./graphics/planet_textureBlueGiant.jpg");
-map5.encoding = sRGBEncoding;
+map5.encoding = THREE.sRGBEncoding;
 let map6 = new THREE.TextureLoader().load("./graphics/planet_textureCyanic.jpg");
-map6.encoding = sRGBEncoding;
+map6.encoding = THREE.sRGBEncoding;
 let map7 = new THREE.TextureLoader().load("./graphics/planet_textureChlorine.jpg");
-map7.encoding = sRGBEncoding;
+map7.encoding = THREE.sRGBEncoding;
 
 let map8 = new THREE.TextureLoader().load("./graphics/planet_textureDust.jpg");
-map8.encoding = sRGBEncoding;
+map8.encoding = THREE.sRGBEncoding;
 let map9 = new THREE.TextureLoader().load("./graphics/planet_textureDesertic.jpg");
-map9.encoding = sRGBEncoding;
+map9.encoding = THREE.sRGBEncoding;
 let map10 = new THREE.TextureLoader().load("./graphics/planet_textureFluorescent.jpg");
-map10.encoding = sRGBEncoding;
+map10.encoding = THREE.sRGBEncoding;
 
 
 let matArray = [
