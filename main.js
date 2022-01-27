@@ -1,16 +1,16 @@
-import * as THREE from 'three';
+import * as THREE from 'https://github.com/mrdoob/three.js/blob/master/build/three.module.js';
 
 import {
   OrbitControls
-} from 'three/examples/jsm/controls/OrbitControls.js';
+} from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/controls/OrbitControls.js';
 
 import {
   RGBELoader
-} from 'three/examples/jsm/loaders/RGBELoader.js'
+} from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/loaders/RGBELoader.js'
 
 import {
   sRGBEncoding
-} from 'three';
+} from 'https://github.com/mrdoob/three.js/blob/master/build/three.module.js';
 
 const scene = new THREE.Scene();
 
